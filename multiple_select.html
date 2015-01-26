@@ -1,0 +1,69 @@
+<!DOCTYPE html/>
+<html>
+<head>
+
+	<title>JS</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<style type="text/css">
+		#BrandApple, #BrandSamsung{
+			display:none;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+
+	    function getval(sel) {
+       		if (sel.value=="none") {
+       			//alert("noooo");
+       			$("#kids").children().css("display", "none");
+       		};
+       		if (sel.value=="Apple") {
+       			//alert("noooo");
+       			$("#kids").children().css("display", "none");
+       			$("#BrandApple").css("display", "initial");
+       		};
+       		if (sel.value=="Samsung") {
+       			//alert("noooo");
+       			$("#kids").children().css("display", "none");
+       			$("#BrandSamsung").css("display", "initial");
+       		};
+    	}
+
+		// $('#Brand').on('change', function() {
+  // 			alert( this.value ); // or $(this).val()
+		// });
+
+
+
+	</script>
+</head>
+<body>
+	<form action="index.html" method="POST">
+		<select name="Brand" id="Brand"  onchange="getval(this);">
+			<option value="none">---</option>
+			<option value="Apple">Apple</option>
+			<option value="Samsung">Samsung</option>
+			<option value="Nokia">Nokia</option>
+			<option value="Sony">Sony</option>
+		</select>	
+	<div id="kids">
+		<select name="BrandApple" id="BrandApple">
+			<option value="iPhone6">iPhone 6</option>
+			<option value="iPhone5">iPhone 5</option>
+			<option value="iPhone4">iPhone 4</option>
+		</select>
+
+		<select name="BrandSamsung" id="BrandSamsung">
+			<option value="GalaxyS6">Galaxy s6</option>
+			<option value="GalaxyS5">Galaxy s5</option>
+			<option value="GalaxyS4">Galaxy s4</option>
+		</select>
+	</div>
+
+	</form>
+
+
+</body>
+</html>
