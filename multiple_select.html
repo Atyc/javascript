@@ -6,10 +6,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 	<style type="text/css">
-		#BrandApple, #BrandSamsung, #BrandNokia{
+		#BrandApple, #BrandSamsung, #BrandNokia {
 			display:none;
 		}
-
 	</style>
 
 	<script type="text/javascript">
@@ -174,24 +173,26 @@ var myArray = [
 }
 ]
 
-function myFunction(arr) {
+function myFunction(arr, place) {
     var out = "";
     var i;
     for(i = 0; i < arr.length; i++) {
         out += '<a href="' + arr[i].url + '">' + arr[i].display + '</a><br>';
     }
-    document.getElementById("demo4").innerHTML = out;
+    document.getElementById(place).innerHTML = out;
 }
 
-myFunction(myArray);
-//--read array from external file --//
+myFunction(myArray, "demo4");
+
+
+//--read JSON from external file --//
 var xmlhttp = new XMLHttpRequest();
 var url = "array.txt";
 
 xmlhttp.onreadystatechange = function() {
 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     var myArr = JSON.parse(xmlhttp.responseText);
-    myFunction(myArr);
+    myFunction(myArr, "demo5");
     }
 }
 
