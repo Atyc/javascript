@@ -3,19 +3,22 @@
 <head>
 
 <style type="text/css">
-td {
-        border:1px solid #cfcac2;
 
-}
-td {
-    min-width:20px;
-    text-align:center;
-    font-family:Verdana;
-}
+
 
 .tableContainer {
     max-width:1000px;
-    overflow:hidden;
+}
+
+.pair {
+    border: 1px solid #efefef;
+    width:45px;
+    height:45px;
+    margin:auto;
+    float:left;
+    padding:5px;
+    text-align:center;
+    font-family:verdana;
 }
 
 </style>
@@ -113,52 +116,41 @@ var myArray={
 
 function translateMe(words) {
     total=words.length;
-    $("#morse").text("");
+    $("#tableContainer").text("");
     $("#english").text("");
     for (var i = 0; i <total; i++) {
         
-        
-            var englishLetterCell = document.createElement("td");   
+            var pair = document.createElement("div"); 
+            pair.className="pair";
+            pair.setAttribute("id", "pair");
+            tableContainer.appendChild(pair);
+
+            var englishLetterCell = document.createElement("div");   
             var notTranslated=words[i];
             var nt = document.createTextNode(notTranslated);     
             englishLetterCell.appendChild(nt); 
-            english.appendChild(englishLetterCell);
+            pair.appendChild(englishLetterCell);
 
-            var morseLetterCell = document.createElement("td");   
+            var morseLetterCell = document.createElement("div");   
             var translated=myArray[words[i]];
             if (translated==undefined) translated="";
             var t = document.createTextNode(translated);     
             morseLetterCell.appendChild(t); 
-            morse.appendChild(morseLetterCell);
+            pair.appendChild(morseLetterCell);
     };
 
 
 };
-
-
-
-
-
-
 </script>
 </head>
+
 <body>
-<input type="text" name="insert" size="100" id="insert" onKeyUp="translateMe(this.value)">
+
+<textarea name="insert" ="insert"  rows="10" cols="60" onKeyUp="translateMe(this.value)"></textarea>
+
 <br><br>
 
-<div class="tableContainer">
-<table border="0" cellspacing="0" cellpadding="5">
-<tr id="english"><td>English</td></tr>
-<tr id="morse"><td>Morse</td></tr>
-</table>
-</div>
-
-
-
-
-
-
-
+<div class="tableContainer" id="tableContainer"></div>
 
 </body>
 </html>
