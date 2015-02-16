@@ -177,7 +177,7 @@ function myFunction(arr, place) {
     var out = "";
     var i;
     for(i = 0; i < arr.length; i++) {
-        out += '<a href="' + arr[i].url + '">' + arr[i].display + '</a><br>';
+        out += arr[i]+'<br>';
     }
     document.getElementById(place).innerHTML = out;
 }
