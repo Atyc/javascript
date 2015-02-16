@@ -6,11 +6,23 @@
 
 
 
-.tableContainer {
+.tableContainer, .tableContainer2 {
     max-width:1000px;
 }
 
-.pair {
+.tableContainer .pair {
+    border: 1px solid #efefef;
+    width:45px;
+    height:45px;
+    margin:auto;
+    float:left;
+    padding:5px;
+    text-align:center;
+    font-family:verdana;
+}
+
+
+.tableContainer2 .pair {
     border: 1px solid #efefef;
     width:45px;
     height:45px;
@@ -114,10 +126,24 @@ var myArray={
 };
 
 
+Object.prototype.getKeyByValue = function( value ) {
+    for( var prop in this ) {
+        if( this.hasOwnProperty( prop ) ) {
+             if( this[ prop ] === value )
+                 return prop;
+        }
+    }
+}
+
+
+test = myArray.getKeyByValue("...--");
+console.log(test);
+
+
+
 function translateMe(words) {
     total=words.length;
     $("#tableContainer").text("");
-    $("#english").text("");
     for (var i = 0; i <total; i++) {
         
             var pair = document.createElement("div"); 
@@ -141,16 +167,45 @@ function translateMe(words) {
 
 
 };
+
+function translateMorse(words) {
+    $("#tableContainer2").text("");
+    var wordsList = words.split(" ");
+    wordsList.forEach(function(entry) {
+      //console.log(entry);
+      if (entry=="") entry=" ";
+      if (entry=="/") entry=" ";
+      morseLetter = myArray.getKeyByValue(entry);
+            var pair2 = document.createElement("div"); 
+            pair2.className="pair";
+            pair2.setAttribute("id", "pair");
+            tableContainer2.appendChild(pair2);
+
+            var morseLetterCell = document.createElement("div");   
+            var t = document.createTextNode(morseLetter);     
+            morseLetterCell.appendChild(t); 
+            pair2.appendChild(morseLetterCell);
+
+    });
+
+
+
+    };
+
+
 </script>
 </head>
 
 <body>
 
-<textarea name="insert" ="insert"  rows="10" cols="60" onKeyUp="translateMe(this.value)"></textarea>
+<textarea name="insert" ="insert"  rows="10" cols="60" onKeyUp="translateMe(this.value)" placeholder="Type text to translate"></textarea>
+<textarea name="insert2" ="insert2"  rows="10" cols="60" onKeyUp="translateMorse(this.value)" placeholder="Type morse code to translate"></textarea>
 
 <br><br>
 
 <div class="tableContainer" id="tableContainer"></div>
+<hr style="clear:both;">
+<div class="tableContainer2" id="tableContainer2"></div>
 
 </body>
 </html>
