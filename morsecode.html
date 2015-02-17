@@ -7,11 +7,11 @@
 
 
 .tableContainer, .tableContainer2 {
-    max-width:1000px;
+    width:100%;
 }
 
-.tableContainer .pair {
-    border: 1px solid #efefef;
+.pair {
+    border: 1px solid #a5a5a5;
     width:45px;
     height:45px;
     margin:auto;
@@ -19,20 +19,29 @@
     padding:5px;
     text-align:center;
     font-family:verdana;
+    overflow:hidden;
 }
 
-
-.tableContainer2 .pair {
-    border: 1px solid #efefef;
-    width:45px;
-    height:45px;
-    margin:auto;
-    float:left;
-    padding:5px;
-    text-align:center;
-    font-family:verdana;
+.halfLeft {
+width:49%;
+float:left;
 }
 
+.halfRight {
+width:49%;
+float:right;
+}
+
+textarea{
+  width:98%;
+  margin:auto;
+}
+
+h1 {
+  font-family: helvetica;
+  font-size:14px;
+  color: #2c89ff;
+}
 </style>
 
 
@@ -125,7 +134,7 @@ var myArray={
   " ": " "
 };
 
-
+//Used to find a key when we know the value
 Object.prototype.getKeyByValue = function( value ) {
     for( var prop in this ) {
         if( this.hasOwnProperty( prop ) ) {
@@ -134,11 +143,6 @@ Object.prototype.getKeyByValue = function( value ) {
         }
     }
 }
-
-
-test = myArray.getKeyByValue("...--");
-console.log(test);
-
 
 
 function translateMe(words) {
@@ -163,34 +167,62 @@ function translateMe(words) {
             var t = document.createTextNode(translated);     
             morseLetterCell.appendChild(t); 
             pair.appendChild(morseLetterCell);
+
+            if (i==0) {
+              var allMorse="";
+              allMorse = allMorse + translated;
+            }
+            else {
+              if (words[i]==" ") {
+                allMorse = allMorse + translated;
+              }
+              else allMorse = allMorse + " " + translated;
+            }
+           $("#insert2").text(allMorse);
     };
+};
+
+function translateMorse(words) {
+    var i;
+    var allText="";
+    
+    $("#tableContainer2").text("");
+    var wordsList = words.split(" ");
+    wordsList.forEach(function(entry) {
+        
+        if (entry=="") entry=" ";
+        if (entry=="/") entry=" ";
+  
+        morseLetter = myArray.getKeyByValue(entry);
+        if (morseLetter==" / ") morseLetter=" ";
+        if (!morseLetter) morseLetter="?";
+        var pair2 = document.createElement("div"); 
+        pair2.className="pair";
+        pair2.setAttribute("id", "pair");
+        tableContainer2.appendChild(pair2);
+
+        var morseLetterCell = document.createElement("div");   
+        var t = document.createTextNode(morseLetter);     
+        morseLetterCell.appendChild(t); 
+        pair2.appendChild(morseLetterCell);
+
+        var englishLetterCell = document.createElement("div");   
+        var nt = document.createTextNode(entry);     
+        englishLetterCell.appendChild(nt); 
+        pair2.appendChild(englishLetterCell);
+
+        if (entry=" ") allText = allText + morseLetter;
+        else allText = allText + " " + morseLetter;
+
+        $("#insert").text(allText);
+          i++;       
+
+     });
+
 
 
 };
 
-function translateMorse(words) {
-    $("#tableContainer2").text("");
-    var wordsList = words.split(" ");
-    wordsList.forEach(function(entry) {
-      //console.log(entry);
-      if (entry=="") entry=" ";
-      if (entry=="/") entry=" ";
-      morseLetter = myArray.getKeyByValue(entry);
-            var pair2 = document.createElement("div"); 
-            pair2.className="pair";
-            pair2.setAttribute("id", "pair");
-            tableContainer2.appendChild(pair2);
-
-            var morseLetterCell = document.createElement("div");   
-            var t = document.createTextNode(morseLetter);     
-            morseLetterCell.appendChild(t); 
-            pair2.appendChild(morseLetterCell);
-
-    });
-
-
-
-    };
 
 
 </script>
@@ -198,14 +230,18 @@ function translateMorse(words) {
 
 <body>
 
-<textarea name="insert" ="insert"  rows="10" cols="60" onKeyUp="translateMe(this.value)" placeholder="Type text to translate"></textarea>
-<textarea name="insert2" ="insert2"  rows="10" cols="60" onKeyUp="translateMorse(this.value)" placeholder="Type morse code to translate"></textarea>
+<div class="halfLeft">
+  <h1>Text to morse code translator</h1>
+  <textarea id="insert" rows="10" onKeyUp="translateMe(this.value);" placeholder="Type text to translate"></textarea>
+  <div class="tableContainer" id="tableContainer"></div>
+</div>
 
-<br><br>
+<div class="halfRight">
+  <h1>Morse code to text translator</h1>
+  <textarea id="insert2" rows="10" onKeyUp="translateMorse(this.value);" placeholder="Type morse code to translate"></textarea>
+  <div class="tableContainer2" id="tableContainer2"></div>
+</div>
 
-<div class="tableContainer" id="tableContainer"></div>
-<hr style="clear:both;">
-<div class="tableContainer2" id="tableContainer2"></div>
 
 </body>
 </html>
